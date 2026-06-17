@@ -134,7 +134,7 @@ export default function Footer() {
                 className="inline-flex items-center px-6 py-3 bg-orange hover:bg-orange-light text-white text-sm font-bold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-orange/30"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
-                Donate Now
+                Invest In B2C
               </Link>
             </div>
           </div>

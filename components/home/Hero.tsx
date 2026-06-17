@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Button from "@/components/ui/Button"
-import { useRef } from "react"
+import { useRef, Fragment } from "react"
 import { motion, useInView } from "framer-motion"
 
 const containerVariants = {
@@ -11,11 +11,11 @@ const containerVariants = {
 }
 
 const wordVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
   },
 }
 
@@ -34,15 +34,17 @@ function AnimatedHeadline() {
         style={{ fontFamily: "var(--font-montserrat)" }}
       >
         {words.map((word, i) => (
-          <span key={i}>
-            <motion.span
-              variants={wordVariants}
-              className={`inline-block ${word.startsWith("Rwanda") ? "text-orange" : ""}`}
-            >
-              {word}
-            </motion.span>
+          <Fragment key={i}>
+            <span className="inline-block overflow-hidden align-bottom pb-1">
+              <motion.span
+                variants={wordVariants}
+                className={`inline-block ${word.startsWith("Rwanda") ? "text-orange" : ""}`}
+              >
+                {word}
+              </motion.span>
+            </span>
             {i < words.length - 1 && " "}
-          </span>
+          </Fragment>
         ))}
       </motion.h1>
       <motion.span
