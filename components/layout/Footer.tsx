@@ -1,16 +1,14 @@
 import Link from "next/link"
-import Image from "next/image"
 import { MapPin, Phone, Mail, Clock } from "lucide-react"
 
 const quickLinks = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Programs", href: "/programs" },
-  { label: "Impact", href: "/impact" },
-  { label: "Scholars", href: "/scholars" },
   { label: "Volunteer", href: "/volunteer" },
+  { label: "About", href: "/about" },
   { label: "News", href: "/news" },
+  { label: "Programs", href: "/programs" },
   { label: "Contact", href: "/contact" },
+  { label: "Impact", href: "/impact" },
   { label: "Privacy Policy", href: "/privacy-policy" },
 ]
 
@@ -25,27 +23,23 @@ export default function Footer() {
 
   return (
     <footer className="bg-navy text-white">
-      {/* Accent line */}
       <div className="h-1 bg-gradient-to-r from-orange via-olive to-orange" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
 
-          {/* Brand column */}
+          {/* Brand column — no logo, description + social only */}
           <div className="lg:col-span-1">
-            <Link href="/">
-              <Image
-                src="/images/logo/logo.png"
-                alt="Bridge2Charity Foundation"
-                width={110}
-                height={36}
-                className="h-9 w-auto object-contain mb-5"
-              />
-            </Link>
-            <p className="text-white/70 text-sm leading-relaxed mb-5" style={{ fontFamily: "var(--font-nunito)" }}>
-              Improving primary students' lives through sustainable community initiatives in Rwanda.
+            <p
+              className="text-white/70 text-sm leading-relaxed mb-5"
+              style={{ fontFamily: "var(--font-nunito)" }}
+            >
+              Improving primary students&apos; lives through sustainable community initiatives in Rwanda.
             </p>
-            <p className="text-cream/60 text-xs font-medium tracking-wide uppercase" style={{ fontFamily: "var(--font-dm-sans)" }}>
+            <p
+              className="text-cream/60 text-xs font-medium tracking-wide uppercase"
+              style={{ fontFamily: "var(--font-dm-sans)" }}
+            >
               Registered Non-Profit Organisation
             </p>
 
@@ -77,7 +71,6 @@ export default function Footer() {
                   <circle cx="4" cy="4" r="2"/>
                 </svg>
               </a>
-              {/* X (Twitter) */}
               <a
                 href="https://x.com/bridge2charity/"
                 target="_blank"
@@ -92,32 +85,43 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick links */}
+          {/* Quick Links — two-column internal grid */}
           <div>
-            <h3 className="font-playfair text-white font-semibold text-lg mb-6">Quick Links</h3>
-            <ul className="space-y-3">
+            <h3
+              className="text-white font-semibold text-lg mb-6"
+              style={{ fontFamily: "var(--font-montserrat)" }}
+            >
+              Quick Links
+            </h3>
+            <div className="grid grid-cols-2 gap-y-3 gap-x-6">
               {quickLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-white/70 hover:text-orange text-sm font-lato transition-colors duration-200"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-cream/80 hover:text-cream hover:underline decoration-orange text-[13px] font-medium leading-[1.8] transition-colors duration-200"
+                  style={{ fontFamily: "var(--font-montserrat)" }}
+                >
+                  {link.label}
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Programs */}
           <div>
-            <h3 className="font-playfair text-white font-semibold text-lg mb-6">Our Programs</h3>
+            <h3
+              className="text-white font-semibold text-lg mb-6"
+              style={{ fontFamily: "var(--font-montserrat)" }}
+            >
+              Our Programs
+            </h3>
             <ul className="space-y-3">
               {programs.map((p) => (
                 <li key={p.href}>
                   <Link
                     href={p.href}
-                    className="text-white/70 hover:text-orange text-sm font-lato transition-colors duration-200"
+                    className="text-white/70 hover:text-orange text-sm transition-colors duration-200"
+                    style={{ fontFamily: "var(--font-nunito)" }}
                   >
                     {p.label}
                   </Link>
@@ -127,7 +131,8 @@ export default function Footer() {
             <div className="mt-8">
               <Link
                 href="/donate"
-                className="inline-flex items-center px-6 py-3 bg-orange hover:bg-orange-light text-white text-sm font-lato font-bold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-orange/30"
+                className="inline-flex items-center px-6 py-3 bg-orange hover:bg-orange-light text-white text-sm font-bold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-orange/30"
+                style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 Donate Now
               </Link>
@@ -136,15 +141,28 @@ export default function Footer() {
 
           {/* Contact info */}
           <div>
-            <h3 className="font-playfair text-white font-semibold text-lg mb-6">Get in Touch</h3>
+            <h3
+              className="text-white font-semibold text-lg mb-6"
+              style={{ fontFamily: "var(--font-montserrat)" }}
+            >
+              Get in Touch
+            </h3>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin size={16} className="text-orange mt-0.5 flex-shrink-0" />
-                <span className="text-white/70 text-sm font-lato">KK 737 St, Kigali, Rwanda</span>
+                <span
+                  className="text-white/70 text-sm"
+                  style={{ fontFamily: "var(--font-nunito)" }}
+                >
+                  KK 737 St, Kigali, Rwanda
+                </span>
               </li>
               <li className="flex items-start gap-3">
                 <Phone size={16} className="text-orange mt-0.5 flex-shrink-0" />
-                <div className="text-white/70 text-sm font-lato space-y-1">
+                <div
+                  className="text-white/70 text-sm space-y-1"
+                  style={{ fontFamily: "var(--font-nunito)" }}
+                >
                   <a href="tel:+250799311463" className="block hover:text-orange transition-colors">
                     +250 799 311 463
                   </a>
@@ -156,15 +174,21 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <Mail size={16} className="text-orange mt-0.5 flex-shrink-0" />
                 <a
-                  href="mailto:bridge2charity@gmail.com"
-                  className="text-white/70 hover:text-orange text-sm font-lato transition-colors"
+                  href="mailto:bridge2char@gmail.com"
+                  className="text-white/70 hover:text-orange text-sm transition-colors"
+                  style={{ fontFamily: "var(--font-nunito)" }}
                 >
-                  bridge2charity@gmail.com
+                  bridge2char@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-3">
                 <Clock size={16} className="text-orange mt-0.5 flex-shrink-0" />
-                <span className="text-white/70 text-sm font-lato">Monday – Friday</span>
+                <span
+                  className="text-white/70 text-sm"
+                  style={{ fontFamily: "var(--font-nunito)" }}
+                >
+                  Monday – Friday
+                </span>
               </li>
             </ul>
           </div>
@@ -172,11 +196,17 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-white/50 text-sm font-lato text-center sm:text-left">
+          <p
+            className="text-white/50 text-sm text-center sm:text-left"
+            style={{ fontFamily: "var(--font-nunito)" }}
+          >
             © {currentYear} Bridge2Charity Foundation. All rights reserved.
           </p>
-          <p className="text-white/40 text-xs font-lato">
-            Built with purpose — for Rwanda's future.
+          <p
+            className="text-white/40 text-xs"
+            style={{ fontFamily: "var(--font-dm-sans)" }}
+          >
+            Built with purpose — for Rwanda&apos;s future.
           </p>
         </div>
       </div>
