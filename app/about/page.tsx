@@ -290,11 +290,7 @@ export default function AboutPage() {
       <TeamCollage />
 
       {/* Divider */}
-      <div className="bg-navy">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="border-t border-white/10" />
-        </div>
-      </div>
+      <div className="w-full h-0.5 bg-white/20" />
 
       {/* ── CTA ──────────────────────────────────────────────────────────────── */}
       <section className="py-12 lg:py-14 bg-navy text-white text-center">
