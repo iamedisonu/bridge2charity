@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { motion, AnimatePresence } from "framer-motion"
 import { getActiveTeamMembers } from "@/data/team"
 import type { TeamMember, TeamCategory } from "@/types/team"
 
@@ -19,16 +20,17 @@ function MemberCard({ member }: { member: TeamMember }) {
       href={`/team/${member.slug}`}
       className="group flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300"
     >
-      {/* Circular photo */}
+      {/* Circular photo — 160px min */}
       <div
-        className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden mb-3 flex-shrink-0 flex items-center justify-center"
+        className="w-40 h-40 rounded-full overflow-hidden mb-3 flex-shrink-0 flex items-center justify-center"
         style={{ border: "2px solid #e0e0e0", background: "#f5f5f5" }}
       >
         {member.photo ? (
           <img
             src={member.photo}
             alt={member.name}
-            className="w-full h-full object-cover"
+            className="w-full h-full"
+            style={{ objectFit: "cover", objectPosition: "center top" }}
           />
         ) : (
           <span
@@ -95,12 +97,21 @@ export default function TeamSection() {
           ))}
         </div>
 
-        {/* Team grid */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-x-6 gap-y-8">
-          {filtered.map((member) => (
-            <MemberCard key={member.id} member={member} />
-          ))}
-        </div>
+        {/* Team grid — fades when tab changes */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-x-6 gap-y-8"
+          >
+            {filtered.map((member) => (
+              <MemberCard key={member.id} member={member} />
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
       </div>
     </section>
