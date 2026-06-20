@@ -80,7 +80,7 @@ export default function Navigation() {
                 alt="Bridge2Charity Foundation"
                 width={120}
                 height={40}
-                className="h-10 w-auto object-contain"
+                className="h-10 w-auto object-contain mix-blend-screen"
                 priority
               />
             </Link>
