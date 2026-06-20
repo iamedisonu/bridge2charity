@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Button from "@/components/ui/Button"
-import { useRef, Fragment } from "react"
+import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 
 const containerVariants = {
@@ -22,7 +22,6 @@ const wordVariants = {
 function AnimatedHeadline() {
   const ref = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true })
-  const words = ["Empowering", "Rwanda’s", "Next", "Generation"]
 
   return (
     <div ref={ref} className="mb-6">
@@ -33,19 +32,60 @@ function AnimatedHeadline() {
         className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight"
         style={{ fontFamily: "var(--font-montserrat)" }}
       >
-        {words.map((word, i) => (
-          <Fragment key={i}>
-            <span className="inline-block overflow-hidden align-bottom pb-1">
-              <motion.span
-                variants={wordVariants}
-                className={`inline-block ${word.startsWith("Rwanda") ? "text-orange" : ""}`}
-              >
-                {word}
-              </motion.span>
-            </span>
-            {i < words.length - 1 && " "}
-          </Fragment>
-        ))}
+        {/* Empowering */}
+        <span className="inline-block overflow-hidden align-bottom pb-1">
+          <motion.span variants={wordVariants} className="inline-block">
+            Empowering
+          </motion.span>
+        </span>
+        {" "}
+        {/* Rwanda’s */}
+        <span className="inline-block overflow-hidden align-bottom pb-1">
+          <motion.span variants={wordVariants} className="inline-block text-orange">
+            Rwanda&apos;s
+          </motion.span>
+        </span>
+        {" "}
+        {/* Next Generation. — wrapped together with hand-drawn underline */}
+        <span className="relative inline-block whitespace-nowrap">
+          <span className="inline-block overflow-hidden align-bottom pb-1">
+            <motion.span variants={wordVariants} className="inline-block">
+              Next
+            </motion.span>
+          </span>
+          {" "}
+          <span className="inline-block overflow-hidden align-bottom pb-1">
+            <motion.span variants={wordVariants} className="inline-block">
+              Generation.
+            </motion.span>
+          </span>
+          {/* Hand-drawn marker underline — two overlapping imperfect strokes */}
+          <svg
+            aria-hidden="true"
+            className="absolute left-0 w-full overflow-visible pointer-events-none"
+            style={{ bottom: "-4px" }}
+            viewBox="0 0 400 14"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M 3 5 C 35 2, 85 9, 140 5 C 195 1, 255 10, 310 5 C 348 1, 375 8, 397 5"
+              stroke="#C9601C"
+              strokeWidth="4"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M 6 10 C 55 7, 110 12, 170 9 C 230 5, 280 12, 335 8 C 362 6, 385 11, 397 9"
+              stroke="#C9601C"
+              strokeWidth="2.5"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity="0.5"
+            />
+          </svg>
+        </span>
       </motion.h1>
       <motion.span
         className="block h-[3px] rounded-sm bg-orange mt-2"
@@ -82,23 +122,6 @@ function AnimatedQuote() {
           </span>
         ))}
       </motion.p>
-      <motion.span
-        className="block h-[3px] rounded-sm bg-olive mt-2 max-w-3xl mx-auto"
-        initial={{ width: "0%" }}
-        animate={inView ? { width: "100%" } : { width: "0%" }}
-        transition={{ duration: 0.8, delay: 2.2, ease: "easeOut" }}
-      />
-    </div>
-  )
-}
-
-function SubLine() {
-  return (
-    <div
-      className="text-white/55 text-sm max-w-xl mx-auto mb-8 text-center tracking-wide"
-      style={{ fontFamily: "var(--font-nunito)" }}
-    >
-      Bridge2Charity Foundation
     </div>
   )
 }
@@ -132,9 +155,8 @@ export default function Hero() {
 
         <AnimatedHeadline />
         <AnimatedQuote />
-        <SubLine />
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
           <Button href="/volunteer" variant="primary" size="lg">
             Become a Volunteer
           </Button>

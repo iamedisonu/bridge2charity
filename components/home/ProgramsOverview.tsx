@@ -1,12 +1,12 @@
 import Link from "next/link"
 import Image from "next/image"
-import SectionWrapper from "@/components/ui/SectionWrapper"
 import { ArrowRight } from "lucide-react"
 import { programs } from "@/data/programs"
 
 export default function ProgramsOverview() {
   return (
-    <SectionWrapper className="bg-white" id="programs">
+    <section className="py-10 lg:py-14 bg-white" id="programs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section label */}
       <div className="flex items-center justify-center gap-3 mb-4">
         <div className="h-px w-8 bg-orange" />
@@ -101,6 +101,7 @@ export default function ProgramsOverview() {
           </Link>
         ))}
       </div>
-    </SectionWrapper>
+      </div>
+    </section>
   )
 }
