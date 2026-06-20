@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import SectionWrapper from "@/components/ui/SectionWrapper"
 import { ArrowRight, Calendar, User } from "lucide-react"
 import { newsArticles } from "@/data/news"
 
@@ -22,17 +21,19 @@ export default function LatestNews() {
   const latest = newsArticles.slice(0, 3)
 
   return (
-    <SectionWrapper className="bg-cream" id="news">
-      {/* Section label */}
-      <div className="flex items-center gap-3 mb-4">
+    <section className="py-12 lg:py-16 bg-cream" id="news">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Section label — centered */}
+      <div className="flex items-center justify-center gap-3 mb-4">
         <div className="h-px w-8 bg-orange" />
         <span className="text-orange text-sm font-lato font-semibold tracking-widest uppercase">
           Latest Updates
         </span>
+        <div className="h-px w-8 bg-orange" />
       </div>
 
       <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
-        <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl text-navy font-bold leading-tight max-w-xl">
+        <h2 className="font-playfair text-3xl sm:text-4xl lg:text-5xl text-navy font-bold leading-tight">
           News &amp; Stories from the Field
         </h2>
         <Link
@@ -110,6 +111,7 @@ export default function LatestNews() {
           </Link>
         ))}
       </div>
-    </SectionWrapper>
+      </div>
+    </section>
   )
 }

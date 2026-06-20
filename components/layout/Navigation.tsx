@@ -29,6 +29,16 @@ export default function Navigation() {
   const [aboutOpen, setAboutOpen] = useState(false)
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const openDropdown = () => {
+    if (dropdownTimer.current) clearTimeout(dropdownTimer.current)
+    setAboutOpen(true)
+  }
+
+  const closeDropdown = () => {
+    dropdownTimer.current = setTimeout(() => setAboutOpen(false), 350)
+  }
   const pathname = usePathname()
 
   useEffect(() => {
@@ -64,13 +74,13 @@ export default function Navigation() {
           <div className="flex items-center justify-between h-16 lg:h-20">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center flex-shrink-0">
+            <Link href="/" className="flex items-center flex-shrink-0 py-2">
               <Image
                 src="/images/logo/logo.png"
                 alt="Bridge2Charity Foundation"
-                width={100}
-                height={32}
-                className="h-8 w-auto object-contain"
+                width={120}
+                height={40}
+                className="h-10 w-auto object-contain"
                 priority
               />
             </Link>
@@ -84,8 +94,8 @@ export default function Navigation() {
                       key={link.href}
                       ref={dropdownRef}
                       className="relative"
-                      onMouseEnter={() => setAboutOpen(true)}
-                      onMouseLeave={() => setAboutOpen(false)}
+                      onMouseEnter={openDropdown}
+                      onMouseLeave={closeDropdown}
                     >
                       <button
                         style={{ fontFamily: "var(--font-jakarta)" }}

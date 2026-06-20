@@ -3,7 +3,7 @@ import { Heart } from "lucide-react"
 
 export default function VolunteerCTA() {
   return (
-    <section className="relative overflow-hidden bg-navy py-24">
+    <section className="relative overflow-hidden bg-navy py-14">
       <div className="absolute top-0 left-0 w-96 h-96 bg-orange/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-olive/5 rounded-full translate-x-1/2 translate-y-1/2" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange/30 to-transparent" />
@@ -28,25 +28,15 @@ export default function VolunteerCTA() {
           Bridge2Charity. Join a team of people who believe that everyone can be part of this mission.
         </p>
 
-        {/* Primary row: Become a Volunteer + Donate side by side */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Button href="/volunteer" variant="primary" size="lg">
             Become a Volunteer
           </Button>
-          <Button href="/donate" variant="secondary" size="lg"
-            className="bg-white/15 hover:bg-white/25 border border-white/30 text-white hover:border-white/60"
-          >
-            Donate
-          </Button>
-        </div>
-
-        {/* Secondary: Get in Touch below */}
-        <div className="flex items-center justify-center">
           <Button
             href="/contact"
             variant="outline"
-            size="md"
-            className="border-white/20 text-white/70 hover:bg-white/10 hover:border-white/40 hover:text-white"
+            size="lg"
+            className="border-white/30 text-white/80 hover:bg-white/10 hover:border-white/60 hover:text-white"
           >
             Get in Touch
           </Button>

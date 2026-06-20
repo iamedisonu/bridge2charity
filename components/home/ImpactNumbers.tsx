@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import SectionWrapper from "@/components/ui/SectionWrapper"
 import { impactStats } from "@/data/impact"
 
 function useCountUp(target: number, duration = 2000, triggered: boolean) {
@@ -80,7 +79,8 @@ export default function ImpactNumbers() {
   }, [])
 
   return (
-    <SectionWrapper className="bg-navy" id="impact">
+    <section className="py-12 lg:py-16 bg-navy" id="impact">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Section label */}
       <div className="flex items-center justify-center gap-3 mb-4">
         <div className="h-px w-8 bg-orange" />
@@ -116,12 +116,13 @@ export default function ImpactNumbers() {
 
       <div className="mt-16 pt-8 border-t border-white/10 text-center">
         <p
-          className="text-white/40 text-sm italic"
+          className="text-white font-bold text-sm"
           style={{ fontFamily: "var(--font-dm-sans)" }}
         >
           Numbers reflect verified program data as of 2026. Updated at the end of each program term.
         </p>
       </div>
-    </SectionWrapper>
+      </div>
+    </section>
   )
 }

@@ -70,7 +70,7 @@ function AnimatedQuote() {
         variants={containerVariants}
         initial="hidden"
         animate={inView ? "visible" : "hidden"}
-        className="text-lg sm:text-xl lg:text-2xl text-white/85 font-light leading-relaxed max-w-3xl mx-auto"
+        className="text-sm sm:text-base text-white/85 font-light leading-relaxed italic max-w-3xl mx-auto"
         style={{ fontFamily: "var(--font-nunito)" }}
       >
         {words.map((word, i) => (
@@ -92,44 +92,13 @@ function AnimatedQuote() {
   )
 }
 
-function CircledMission() {
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true })
-
+function SubLine() {
   return (
     <div
-      className="text-white/60 text-base max-w-xl mx-auto mb-10 text-center"
+      className="text-white/55 text-sm max-w-xl mx-auto mb-8 text-center tracking-wide"
       style={{ fontFamily: "var(--font-nunito)" }}
     >
-      <span className="block">Education. Nutrition. Community.</span>
-      <span ref={ref} className="relative block mt-1">
-        One Mission — Rwanda where every child has the chance to thrive.
-        <motion.svg
-          aria-hidden="true"
-          className="absolute pointer-events-none"
-          style={{
-            top: "-12px",
-            left: "-20px",
-            width: "calc(100% + 40px)",
-            height: "calc(100% + 24px)",
-          }}
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-        >
-          <motion.ellipse
-            cx="50"
-            cy="50"
-            rx="48"
-            ry="46"
-            fill="none"
-            strokeLinecap="round"
-            style={{ stroke: "var(--color-orange)", strokeWidth: 2 }}
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={inView ? { pathLength: 1, opacity: 1 } : {}}
-            transition={{ duration: 1.2, delay: 0.3, ease: "easeInOut" }}
-          />
-        </motion.svg>
-      </span>
+      Bridge2Charity Foundation
     </div>
   )
 }
@@ -157,33 +126,22 @@ export default function Hero() {
             className="text-orange text-sm font-semibold tracking-wide uppercase"
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
-            Bridge2Charity Foundation
+            Education. Nutrition. Community.
           </span>
         </div>
 
         <AnimatedHeadline />
         <AnimatedQuote />
-        <CircledMission />
+        <SubLine />
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
           <Button href="/volunteer" variant="primary" size="lg">
             Become a Volunteer
           </Button>
           <Button
-            href="/donate"
-            variant="secondary"
-            size="lg"
-            className="bg-white/15 hover:bg-white/25 border border-white/30 text-white hover:border-white/60"
-          >
-            Donate
-          </Button>
-        </div>
-
-        <div className="flex items-center justify-center">
-          <Button
             href="/programs"
             variant="outline"
-            size="md"
+            size="lg"
             className="border-white/30 text-white/80 hover:bg-white/10 hover:border-white/60 hover:text-white"
           >
             Explore Our Programs

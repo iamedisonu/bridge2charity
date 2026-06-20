@@ -290,19 +290,19 @@ export default function AboutPage() {
       <TeamCollage />
 
       {/* Divider */}
-      <div className="w-full h-0.5 bg-white/20" />
+      <div className="w-full h-0.5 bg-navy/10" />
 
       {/* ── CTA ──────────────────────────────────────────────────────────────── */}
-      <section className="py-12 lg:py-14 bg-navy text-white text-center">
+      <section className="py-12 lg:py-14 bg-cream text-center">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight mb-4"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy leading-tight mb-4"
             style={{ fontFamily: "var(--font-montserrat)" }}
           >
             Join the Mission
           </h2>
           <p
-            className="text-white/70 text-sm sm:text-base leading-relaxed mb-8"
+            className="text-navy/70 text-sm sm:text-base leading-relaxed mb-8"
             style={{ fontFamily: "var(--font-nunito)" }}
           >
             Whether you give, volunteer, or share our story — every action moves Rwanda forward.
