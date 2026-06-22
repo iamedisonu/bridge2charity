@@ -18,7 +18,7 @@ function MemberCard({ member }: { member: TeamMember }) {
   return (
     <Link
       href={`/team/${member.slug}`}
-      className="group flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300"
+      className="group flex flex-col items-center text-center w-[200px] hover:-translate-y-1 transition-transform duration-300"
     >
       {/* Circular photo — 200px */}
       <div
@@ -113,7 +113,7 @@ export default function TeamSection() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-x-6 gap-y-8"
+            className="flex flex-wrap justify-center gap-x-[30px] gap-y-10"
           >
             {filtered.map((member) => (
               <MemberCard key={member.id} member={member} />
