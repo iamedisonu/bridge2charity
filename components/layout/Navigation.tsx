@@ -17,7 +17,6 @@ const navLinks = [
   { label: "About", href: "/about", dropdown: aboutDropdown },
   { label: "Programs", href: "/programs" },
   { label: "Impact", href: "/impact" },
-  { label: "Scholars", href: "/scholars" },
   { label: "Get Involved", href: "/volunteer" },
   { label: "News", href: "/news" },
 ]
