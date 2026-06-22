@@ -20,17 +20,25 @@ function MemberCard({ member }: { member: TeamMember }) {
       href={`/team/${member.slug}`}
       className="group flex flex-col items-center text-center hover:-translate-y-1 transition-transform duration-300"
     >
-      {/* Circular photo — 160px min */}
+      {/* Circular photo — 200px */}
       <div
-        className="w-40 h-40 rounded-full overflow-hidden mb-3 flex-shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
-        style={{ border: "2px solid #e0e0e0", background: "#f5f5f5" }}
+        className="rounded-full overflow-hidden mb-3 flex-shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+        style={{ width: "200px", height: "200px", border: "2px solid #e0e0e0", background: "#f5f5f5" }}
       >
         {member.photo ? (
           <img
             src={member.photo}
             alt={member.name}
-            className="w-full h-full transition-transform duration-300 group-hover:scale-110"
-            style={{ objectFit: "cover", objectPosition: "center top" }}
+            className="transition-transform duration-300 group-hover:scale-110"
+            style={{
+              width: "200px",
+              height: "200px",
+              borderRadius: "50%",
+              objectFit: "cover",
+              objectPosition: "center top",
+              display: "block",
+              margin: "0 auto",
+            }}
           />
         ) : (
           <span

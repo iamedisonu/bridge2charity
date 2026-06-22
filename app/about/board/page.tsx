@@ -28,20 +28,33 @@ export default function BoardPage() {
             >
               {/* Circular photo */}
               <div
-                className="w-40 h-40 rounded-full overflow-hidden mb-4 flex-shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
-                style={{ border: "2px solid #e0e0e0", background: "linear-gradient(135deg, #050a30 60%, #1a2050)" }}
+                className="rounded-full overflow-hidden mb-4 flex-shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+                style={{
+                  width: "200px",
+                  height: "200px",
+                  border: "2px solid #e0e0e0",
+                  background: "#f5f5f5",
+                }}
               >
                 {member.photo ? (
                   <img
                     src={member.photo}
                     alt={member.name}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                    style={{ objectPosition: "center top" }}
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      objectPosition: "center top",
+                      display: "block",
+                      margin: "0 auto",
+                    }}
+                    className="transition-transform duration-300 group-hover:scale-110"
                   />
                 ) : (
                   <span
-                    className="text-4xl font-bold text-white/20 select-none"
-                    style={{ fontFamily: "var(--font-montserrat)" }}
+                    className="text-4xl font-bold select-none"
+                    style={{ color: "#050a30", opacity: 0.25, fontFamily: "var(--font-montserrat)" }}
                   >
                     {member.initials}
                   </span>
