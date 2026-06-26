@@ -6,16 +6,31 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
 
+type DropdownKey = "about" | "programs"
+
+type NavLink = {
+  label: string
+  href: string
+  dropdown?: { label: string; href: string }[]
+  dropdownKey?: DropdownKey
+}
+
 const aboutDropdown = [
   { label: "About Us", href: "/about" },
   { label: "Meet the Team", href: "/about/team" },
   { label: "Board of Directors", href: "/about/board" },
 ]
 
-const navLinks = [
+const programsDropdown = [
+  { label: "Back to School", href: "/programs/back-to-school" },
+  { label: "English Enhancement", href: "/programs/english-enhancement" },
+  { label: "One Hen Per Child", href: "/programs/one-hen-per-child" },
+]
+
+const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about", dropdown: aboutDropdown },
-  { label: "Programs", href: "/programs" },
+  { label: "About", href: "/about", dropdown: aboutDropdown, dropdownKey: "about" },
+  { label: "Programs", href: "/programs", dropdown: programsDropdown, dropdownKey: "programs" },
   { label: "Impact", href: "/impact" },
   { label: "Get Involved", href: "/volunteer" },
   { label: "News", href: "/news" },
@@ -24,20 +39,23 @@ const navLinks = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [aboutOpen, setAboutOpen] = useState(false)
-  const [mobileAboutOpen, setMobileAboutOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [openDropdown, setOpenDropdown] = useState<DropdownKey | null>(null)
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<DropdownKey | null>(null)
   const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const openDropdown = () => {
-    if (dropdownTimer.current) clearTimeout(dropdownTimer.current)
-    setAboutOpen(true)
-  }
-
-  const closeDropdown = () => {
-    dropdownTimer.current = setTimeout(() => setAboutOpen(false), 350)
-  }
   const pathname = usePathname()
+
+  const openDrop = (key: DropdownKey) => {
+    if (dropdownTimer.current) clearTimeout(dropdownTimer.current)
+    setOpenDropdown(key)
+  }
+
+  const closeDrop = () => {
+    dropdownTimer.current = setTimeout(() => setOpenDropdown(null), 350)
+  }
+
+  const keepDrop = () => {
+    if (dropdownTimer.current) clearTimeout(dropdownTimer.current)
+  }
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -47,19 +65,19 @@ export default function Navigation() {
 
   useEffect(() => {
     setIsOpen(false)
-    setMobileAboutOpen(false)
+    setMobileOpenDropdown(null)
   }, [pathname])
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
-    }
+    document.body.style.overflow = isOpen ? "hidden" : ""
     return () => { document.body.style.overflow = "" }
   }, [isOpen])
 
-  const isAboutActive = pathname.startsWith("/about") || pathname.startsWith("/team")
+  function isNavLinkActive(link: NavLink): boolean {
+    if (link.dropdownKey === "about") return pathname.startsWith("/about") || pathname.startsWith("/team")
+    if (link.dropdownKey === "programs") return pathname.startsWith("/programs")
+    return pathname === link.href
+  }
 
   return (
     <>
@@ -86,19 +104,21 @@ export default function Navigation() {
             {/* Desktop nav */}
             <div className="hidden lg:flex items-center gap-0.5">
               {navLinks.map((link) => {
-                if (link.dropdown) {
+                const active = isNavLinkActive(link)
+
+                if (link.dropdown && link.dropdownKey) {
+                  const isDropOpen = openDropdown === link.dropdownKey
                   return (
                     <div
                       key={link.href}
-                      ref={dropdownRef}
                       className="relative"
-                      onMouseEnter={openDropdown}
-                      onMouseLeave={closeDropdown}
+                      onMouseEnter={() => openDrop(link.dropdownKey!)}
+                      onMouseLeave={closeDrop}
                     >
                       <button
                         style={{ fontFamily: "var(--font-jakarta)" }}
                         className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
-                          isAboutActive
+                          active
                             ? "text-orange border-b-2 border-orange"
                             : "text-white/90 hover:text-white hover:bg-white/10"
                         }`}
@@ -106,15 +126,18 @@ export default function Navigation() {
                         {link.label}
                         <ChevronDown
                           size={14}
-                          className={`transition-transform duration-200 ${aboutOpen ? "rotate-180" : ""}`}
+                          className={`transition-transform duration-200 ${isDropOpen ? "rotate-180" : ""}`}
                         />
                       </button>
 
-                      {/* Dropdown panel */}
                       <div
-                        className={`absolute top-full left-0 mt-1 w-52 bg-navy-light border border-white/10 rounded-xl shadow-xl shadow-navy/40 overflow-hidden transition-all duration-200 ${
-                          aboutOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"
+                        className={`absolute top-full left-0 mt-1 w-56 bg-navy-light border border-white/10 rounded-xl shadow-xl shadow-navy/40 overflow-hidden transition-all duration-200 ${
+                          isDropOpen
+                            ? "opacity-100 translate-y-0 pointer-events-auto"
+                            : "opacity-0 -translate-y-2 pointer-events-none"
                         }`}
+                        onMouseEnter={keepDrop}
+                        onMouseLeave={closeDrop}
                       >
                         {link.dropdown.map((sub) => (
                           <Link
@@ -131,14 +154,13 @@ export default function Navigation() {
                   )
                 }
 
-                const isActive = pathname === link.href
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     style={{ fontFamily: "var(--font-jakarta)" }}
                     className={`px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200 ${
-                      isActive
+                      active
                         ? "text-orange border-b-2 border-orange"
                         : "text-white/90 hover:text-white hover:bg-white/10"
                     }`}
@@ -209,24 +231,26 @@ export default function Navigation() {
         {/* Drawer links */}
         <nav className="flex-1 overflow-y-auto px-4 py-6 space-y-1">
           {navLinks.map((link) => {
-            if (link.dropdown) {
-              const isActive = isAboutActive
+            const active = isNavLinkActive(link)
+
+            if (link.dropdown && link.dropdownKey) {
+              const mobileOpen = mobileOpenDropdown === link.dropdownKey
               return (
                 <div key={link.href}>
                   <button
-                    onClick={() => setMobileAboutOpen((v) => !v)}
+                    onClick={() => setMobileOpenDropdown(mobileOpen ? null : link.dropdownKey!)}
                     className={`flex items-center justify-between w-full px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
-                      isActive ? "bg-orange/20 text-orange" : "text-white/90 hover:bg-white/10 hover:text-white"
+                      active ? "bg-orange/20 text-orange" : "text-white/90 hover:bg-white/10 hover:text-white"
                     }`}
                     style={{ fontFamily: "var(--font-jakarta)" }}
                   >
                     {link.label}
                     <ChevronDown
                       size={16}
-                      className={`transition-transform duration-200 ${mobileAboutOpen ? "rotate-180" : ""}`}
+                      className={`transition-transform duration-200 ${mobileOpen ? "rotate-180" : ""}`}
                     />
                   </button>
-                  {mobileAboutOpen && (
+                  {mobileOpen && (
                     <div className="ml-4 mt-1 space-y-1 border-l-2 border-orange/30 pl-3">
                       {link.dropdown.map((sub) => (
                         <Link
@@ -244,13 +268,12 @@ export default function Navigation() {
               )
             }
 
-            const isActive = pathname === link.href
             return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`flex items-center px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
-                  isActive ? "bg-orange/20 text-orange" : "text-white/90 hover:bg-white/10 hover:text-white"
+                  active ? "bg-orange/20 text-orange" : "text-white/90 hover:bg-white/10 hover:text-white"
                 }`}
                 style={{ fontFamily: "var(--font-jakarta)" }}
               >

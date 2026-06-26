@@ -1,6 +1,7 @@
 export interface Scholar {
   id: string
   firstName: string
+  lastName?: string
   hometown: string
   grade: string
   photoUrl?: string
