@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { scholarCohorts } from "@/data/scholars"
 
 // ── Count-up hook ────────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2000, triggered = false) {
@@ -96,9 +95,6 @@ export default function BackToSchoolPage() {
     return () => observer.disconnect()
   }, [])
 
-  const cohort1 = scholarCohorts.find(c => c.id === "cohort-1")
-  const cohort1Count = cohort1?.scholars.filter(s => s.firstName !== "TBD").length ?? 0
-
   return (
     <main>
 
@@ -112,7 +108,6 @@ export default function BackToSchoolPage() {
           priority
         />
         <div className="absolute inset-0 bg-navy/60" />
-
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 py-28 max-w-3xl mx-auto">
           <p
             className="text-2xl sm:text-3xl lg:text-4xl text-white font-light italic leading-relaxed mb-5"
@@ -201,13 +196,13 @@ export default function BackToSchoolPage() {
         </div>
       </section>
 
-      {/* ── Students Stats + Photo ───────────────────────────────────────────── */}
+      {/* ── Meet Our Students — photo + stats ────────────────────────────────── */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-md">
 
-            {/* Left — image */}
-            <div className="relative min-h-[400px] lg:min-h-0">
+            {/* Left — photo (user will add image here) */}
+            <div className="relative min-h-[420px] lg:min-h-0">
               <Image
                 src="/images/programs/bts-meet-students.jpg"
                 alt="Bridge2Charity students in Burera"
@@ -216,8 +211,18 @@ export default function BackToSchoolPage() {
               />
             </div>
 
-            {/* Right — navy panel with count-up stats */}
+            {/* Right — navy panel */}
             <div className="bg-navy flex flex-col justify-center px-10 py-12">
+
+              {/* Heading inside the navy panel */}
+              <h2
+                className="text-2xl sm:text-3xl font-bold text-white mb-8 leading-tight"
+                style={{ fontFamily: "var(--font-montserrat)" }}
+              >
+                Meet Our Students
+              </h2>
+
+              {/* Count-up stats */}
               <div ref={statsRef} className="flex gap-12">
                 <div>
                   <p
@@ -253,74 +258,35 @@ export default function BackToSchoolPage() {
         </div>
       </section>
 
-      {/* ── Meet Our Cohort ──────────────────────────────────────────────────── */}
-      <section className="py-16 lg:py-20 bg-cream">
+      {/* ── Cohort section — dark bg, white buttons ──────────────────────────── */}
+      <section className="py-14 lg:py-16" style={{ backgroundColor: "#1c1c1c" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap gap-4">
 
-          <h2
-            className="text-2xl sm:text-3xl font-bold text-navy text-center mb-12"
-            style={{ fontFamily: "var(--font-montserrat)" }}
-          >
-            Meet Our Scholars
-          </h2>
-
-          {/* Cohort 1 card */}
-          <div className="max-w-sm mx-auto">
+            {/* Cohort 1 — active */}
             <Link
               href="/scholars/cohort-1"
-              className="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              className="inline-block bg-white text-navy font-bold uppercase tracking-widest text-sm px-10 py-4 rounded-md hover:bg-gray-100 transition-colors duration-200"
+              style={{ fontFamily: "var(--font-jakarta)" }}
             >
-              {/* Cover image */}
-              <div className="relative aspect-[4/3] bg-navy/8">
-                <Image
-                  src="/images/scholars/cohort-1/cover.jpg"
-                  alt="Cohort 1 scholars"
-                  fill
-                  className="object-cover object-top"
-                />
-              </div>
-
-              {/* Info bar */}
-              <div className="bg-navy px-6 py-5">
-                <p
-                  className="text-orange text-xs font-semibold tracking-widest uppercase mb-1"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  Burera District · 2024
-                </p>
-                <h3
-                  className="text-white text-xl font-bold mb-3"
-                  style={{ fontFamily: "var(--font-montserrat)" }}
-                >
-                  Cohort 1
-                </h3>
-                <span
-                  className="inline-flex items-center gap-2 text-white/60 text-sm font-medium group-hover:text-orange transition-colors duration-200"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  {cohort1Count} Scholars
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                    className="group-hover:translate-x-1 transition-transform duration-200">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </span>
-              </div>
+              Meet Cohort 1
             </Link>
+
+            {/* Cohort 2, 3, 4, 5 — uncomment when confirmed */}
+            {false && (
+              <>
+                <Link href="/scholars/cohort-2" className="inline-block bg-white text-navy font-bold uppercase tracking-widest text-sm px-10 py-4 rounded-md hover:bg-gray-100 transition-colors duration-200" style={{ fontFamily: "var(--font-jakarta)" }}>Meet Cohort 2</Link>
+                <Link href="/scholars/cohort-3" className="inline-block bg-white text-navy font-bold uppercase tracking-widest text-sm px-10 py-4 rounded-md hover:bg-gray-100 transition-colors duration-200" style={{ fontFamily: "var(--font-jakarta)" }}>Meet Cohort 3</Link>
+                <Link href="/scholars/cohort-4" className="inline-block bg-white text-navy font-bold uppercase tracking-widest text-sm px-10 py-4 rounded-md hover:bg-gray-100 transition-colors duration-200" style={{ fontFamily: "var(--font-jakarta)" }}>Meet Cohort 4</Link>
+                <Link href="/scholars/cohort-5" className="inline-block bg-white text-navy font-bold uppercase tracking-widest text-sm px-10 py-4 rounded-md hover:bg-gray-100 transition-colors duration-200" style={{ fontFamily: "var(--font-jakarta)" }}>Meet Cohort 5</Link>
+              </>
+            )}
           </div>
-
-          {/* Cohort 2 and 3 — uncomment when confirmed */}
-          {false && (
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
-              {/* Cohort 2 card */}
-              {/* Cohort 3 card */}
-            </div>
-          )}
-
         </div>
       </section>
 
       {/* ── Our Approach to Student Support ─────────────────────────────────── */}
-      <section className="py-16 lg:py-20 bg-white">
+      <section className="py-16 lg:py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="text-center mb-12">
@@ -334,7 +300,7 @@ export default function BackToSchoolPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {approaches.map((approach) => (
-              <div key={approach.title} className="bg-cream rounded-2xl p-7">
+              <div key={approach.title} className="bg-white rounded-2xl p-7">
                 <div className="flex items-center gap-3 mb-4">
                   <ArrowCircle />
                   <h3

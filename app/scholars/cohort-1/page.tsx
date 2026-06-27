@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Link from "next/link"
+import Image from "next/image"
 import { scholarCohorts } from "@/data/scholars"
 
 export const metadata: Metadata = {
@@ -9,43 +9,26 @@ export const metadata: Metadata = {
 
 export default function Cohort1Page() {
   const cohort = scholarCohorts.find(c => c.id === "cohort-1")
-  const students = cohort?.scholars.filter(s => s.firstName !== "TBD") ?? []
+  const students = cohort?.scholars ?? []
 
   return (
     <main className="min-h-screen bg-cream pt-20">
 
-      {/* ── Header ───────────────────────────────────────────────────────────── */}
-      <div className="bg-navy py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <Link
-            href="/programs/back-to-school"
-            className="inline-flex items-center gap-2 text-white/40 hover:text-white text-sm mb-6 transition-colors duration-200"
-            style={{ fontFamily: "var(--font-jakarta)" }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-            Back to School
-          </Link>
-          <h1
-            className="text-3xl sm:text-4xl font-bold text-white"
-            style={{ fontFamily: "var(--font-montserrat)" }}
-          >
-            Cohort 1
-          </h1>
-          <p
-            className="text-white/50 text-sm mt-1"
-            style={{ fontFamily: "var(--font-nunito)" }}
-          >
-            Burera Scholars · 2024
-          </p>
-        </div>
+      {/* ── Pencil image banner ───────────────────────────────────────────────── */}
+      <div className="relative w-full" style={{ height: "300px" }}>
+        <Image
+          src="/images/scholars/cohort-1/cover.jpg"
+          alt="Cohort 1 — Burera Scholars"
+          fill
+          className="object-cover object-center"
+          priority
+        />
       </div>
 
       {/* ── Student grid ─────────────────────────────────────────────────────── */}
       <section className="py-14 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-10">
             {students.map(student => (
               <div key={student.id} className="flex flex-col items-center text-center group">
 
@@ -55,8 +38,8 @@ export default function Cohort1Page() {
                   style={{
                     width: "160px",
                     height: "160px",
-                    background: "#e8e8e8",
-                    border: "2px solid #e0e0e0",
+                    background: "#e0e0e0",
+                    border: "2px solid #d0d0d0",
                   }}
                 >
                   {student.photoUrl ? (
@@ -76,7 +59,7 @@ export default function Cohort1Page() {
                   ) : (
                     <div
                       className="w-full h-full flex items-center justify-center"
-                      style={{ backgroundColor: "#f0f0f0" }}
+                      style={{ backgroundColor: "#efefef" }}
                     >
                       <span
                         className="text-3xl font-bold select-none"
@@ -88,18 +71,19 @@ export default function Cohort1Page() {
                   )}
                 </div>
 
-                {/* Name | School */}
+                {/* FirstName LastName */}
                 <p
                   className="text-navy font-semibold text-sm leading-tight"
                   style={{ fontFamily: "var(--font-jakarta)" }}
                 >
-                  {student.lastName} {student.firstName}
+                  {student.firstName} {student.lastName}
                 </p>
+                {/* School */}
                 <p
                   className="text-navy/45 text-xs mt-0.5"
                   style={{ fontFamily: "var(--font-nunito)" }}
                 >
-                  {student.school ?? "Burera District"}
+                  {student.school ?? "EP Kirambo"}
                 </p>
 
               </div>
