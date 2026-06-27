@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import type { Metadata } from "next"
+import { scholarCohorts } from "@/data/scholars"
 
 // ── Count-up hook ────────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 2000, triggered = false) {
@@ -96,6 +96,9 @@ export default function BackToSchoolPage() {
     return () => observer.disconnect()
   }, [])
 
+  const cohort1 = scholarCohorts.find(c => c.id === "cohort-1")
+  const cohort1Count = cohort1?.scholars.filter(s => s.firstName !== "TBD").length ?? 0
+
   return (
     <main>
 
@@ -135,7 +138,7 @@ export default function BackToSchoolPage() {
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md">
               <Image
                 src="/images/programs/bts-three-program.jpg"
-                alt="Back to School students"
+                alt="Bridge2Charity programs"
                 fill
                 className="object-cover object-center"
               />
@@ -143,15 +146,6 @@ export default function BackToSchoolPage() {
 
             {/* Right — text */}
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-px w-8 bg-orange" />
-                <span
-                  className="text-orange text-xs font-semibold tracking-widest uppercase"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  Our Difference
-                </span>
-              </div>
               <h2
                 className="text-3xl sm:text-4xl font-bold text-navy leading-tight mb-5"
                 style={{ fontFamily: "var(--font-montserrat)" }}
@@ -174,7 +168,6 @@ export default function BackToSchoolPage() {
       <section className="py-16 lg:py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* Badge */}
           <div className="flex justify-center mb-10">
             <span
               className="inline-block bg-orange text-white font-bold text-base px-8 py-2.5 rounded-full tracking-wide"
@@ -184,7 +177,6 @@ export default function BackToSchoolPage() {
             </span>
           </div>
 
-          {/* 2×2 focus grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {focuses.map((focus) => (
               <div key={focus.title} className="bg-white rounded-2xl p-7 shadow-sm">
@@ -209,43 +201,24 @@ export default function BackToSchoolPage() {
         </div>
       </section>
 
-      {/* ── Meet Our Students ────────────────────────────────────────────────── */}
+      {/* ── Students Stats + Photo ───────────────────────────────────────────── */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0 rounded-2xl overflow-hidden shadow-md">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-md">
 
             {/* Left — image */}
             <div className="relative min-h-[400px] lg:min-h-0">
               <Image
                 src="/images/programs/bts-meet-students.jpg"
-                alt="Meet Our Students"
+                alt="Bridge2Charity students in Burera"
                 fill
                 className="object-cover object-center"
               />
             </div>
 
-            {/* Right — navy panel with stats */}
-            <div
-              className="bg-navy flex flex-col justify-center px-10 py-12"
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-px w-8 bg-orange" />
-                <span
-                  className="text-orange text-xs font-semibold tracking-widest uppercase"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  Our Scholars
-                </span>
-              </div>
-              <h2
-                className="text-2xl sm:text-3xl font-bold text-white mb-8 leading-tight"
-                style={{ fontFamily: "var(--font-montserrat)" }}
-              >
-                Meet Our Students
-              </h2>
-
-              {/* Count-up stats */}
-              <div ref={statsRef} className="flex gap-12 mb-10">
+            {/* Right — navy panel with count-up stats */}
+            <div className="bg-navy flex flex-col justify-center px-10 py-12">
+              <div ref={statsRef} className="flex gap-12">
                 <div>
                   <p
                     className="text-5xl font-bold text-orange leading-none"
@@ -275,50 +248,82 @@ export default function BackToSchoolPage() {
                   </p>
                 </div>
               </div>
-
-              {/* Cohort links */}
-              <div className="space-y-3">
-                <p
-                  className="text-white/40 text-xs uppercase tracking-widest font-semibold mb-4"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  Explore Our Cohorts
-                </p>
-                {[1, 2, 3].map((n) => (
-                  <Link
-                    key={n}
-                    href={`/scholars#cohort-${n}`}
-                    className="flex items-center gap-2 text-white hover:text-orange text-sm font-medium transition-colors duration-200 group"
-                    style={{ fontFamily: "var(--font-jakarta)" }}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                      className="group-hover:translate-x-1 transition-transform duration-200">
-                      <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
-                    Meet Cohort {n}
-                  </Link>
-                ))}
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Our Approach to Student Support ─────────────────────────────────── */}
+      {/* ── Meet Our Cohort ──────────────────────────────────────────────────── */}
       <section className="py-16 lg:py-20 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-8 bg-orange" />
-              <span
-                className="text-orange text-xs font-semibold tracking-widest uppercase"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                How We Work
-              </span>
-              <div className="h-px w-8 bg-orange" />
+          <h2
+            className="text-2xl sm:text-3xl font-bold text-navy text-center mb-12"
+            style={{ fontFamily: "var(--font-montserrat)" }}
+          >
+            Meet Our Scholars
+          </h2>
+
+          {/* Cohort 1 card */}
+          <div className="max-w-sm mx-auto">
+            <Link
+              href="/scholars/cohort-1"
+              className="group block rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            >
+              {/* Cover image */}
+              <div className="relative aspect-[4/3] bg-navy/8">
+                <Image
+                  src="/images/scholars/cohort-1/cover.jpg"
+                  alt="Cohort 1 scholars"
+                  fill
+                  className="object-cover object-top"
+                />
+              </div>
+
+              {/* Info bar */}
+              <div className="bg-navy px-6 py-5">
+                <p
+                  className="text-orange text-xs font-semibold tracking-widest uppercase mb-1"
+                  style={{ fontFamily: "var(--font-jakarta)" }}
+                >
+                  Burera District · 2024
+                </p>
+                <h3
+                  className="text-white text-xl font-bold mb-3"
+                  style={{ fontFamily: "var(--font-montserrat)" }}
+                >
+                  Cohort 1
+                </h3>
+                <span
+                  className="inline-flex items-center gap-2 text-white/60 text-sm font-medium group-hover:text-orange transition-colors duration-200"
+                  style={{ fontFamily: "var(--font-jakarta)" }}
+                >
+                  {cohort1Count} Scholars
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                    className="group-hover:translate-x-1 transition-transform duration-200">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </Link>
+          </div>
+
+          {/* Cohort 2 and 3 — uncomment when confirmed */}
+          {false && (
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
+              {/* Cohort 2 card */}
+              {/* Cohort 3 card */}
             </div>
+          )}
+
+        </div>
+      </section>
+
+      {/* ── Our Approach to Student Support ─────────────────────────────────── */}
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          <div className="text-center mb-12">
             <h2
               className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy leading-tight"
               style={{ fontFamily: "var(--font-montserrat)" }}
@@ -327,10 +332,9 @@ export default function BackToSchoolPage() {
             </h2>
           </div>
 
-          {/* 3-column cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {approaches.map((approach) => (
-              <div key={approach.title} className="bg-white rounded-2xl p-7 shadow-sm">
+              <div key={approach.title} className="bg-cream rounded-2xl p-7">
                 <div className="flex items-center gap-3 mb-4">
                   <ArrowCircle />
                   <h3

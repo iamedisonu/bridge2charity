@@ -51,7 +51,7 @@ const steps = [
   },
 ]
 
-const galleryPlaceholders = [
+const galleryItems = [
   "Training session",
   "Hens being distributed",
   "Parent with child",
@@ -124,19 +124,10 @@ export default function OneHenPerChildPage() {
         </div>
       </section>
 
-      {/* ── Why This Matters ─────────────────────────────────────────────────── */}
+      {/* ── Why Child Nutrition Matters ───────────────────────────────────────── */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="h-px w-8 bg-orange" />
-              <span
-                className="text-orange text-xs font-semibold tracking-widest uppercase"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Why This Matters
-              </span>
-            </div>
             <h2
               className="text-2xl sm:text-3xl lg:text-4xl font-bold text-navy leading-tight mb-6"
               style={{ fontFamily: "var(--font-montserrat)" }}
@@ -160,19 +151,9 @@ export default function OneHenPerChildPage() {
       </section>
 
       {/* ── Impact Numbers ───────────────────────────────────────────────────── */}
-      <section className="py-14 lg:py-16 bg-cream">
+      <section className="py-10 lg:py-14 bg-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <div className="h-px w-8 bg-orange" />
-              <span
-                className="text-orange text-xs font-semibold tracking-widest uppercase"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Program Impact
-              </span>
-              <div className="h-px w-8 bg-orange" />
-            </div>
+          <div className="text-center mb-8">
             <h2
               className="text-2xl sm:text-3xl font-bold text-navy"
               style={{ fontFamily: "var(--font-montserrat)" }}
@@ -181,31 +162,18 @@ export default function OneHenPerChildPage() {
             </h2>
           </div>
 
+          {/* Row 1 — 3 stats */}
           <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-5">
             {impactStats.slice(0, 3).map((stat) => (
               <StatCard key={stat.label} {...stat} triggered={triggered} />
             ))}
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-xl mx-auto">
+
+          {/* Row 2 — 2+ centered below 90+ */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div />
             <StatCard {...impactStats[3]} triggered={triggered} />
-            {/* Location card */}
-            <div
-              className="flex flex-col items-center justify-center text-center rounded-2xl py-8 px-6"
-              style={{ backgroundColor: "#FBF6F0" }}
-            >
-              <p
-                className="text-4xl font-bold leading-none mb-2"
-                style={{ color: "#F16927", fontFamily: "var(--font-montserrat)" }}
-              >
-                Juru
-              </p>
-              <p
-                className="text-navy/60 text-sm leading-snug"
-                style={{ fontFamily: "var(--font-nunito)" }}
-              >
-                Sector, Bugesera District
-              </p>
-            </div>
+            <div />
           </div>
         </div>
       </section>
@@ -281,38 +249,26 @@ export default function OneHenPerChildPage() {
         </div>
       </section>
 
-      {/* ── Photo Gallery ────────────────────────────────────────────────────── */}
-      <section className="py-16 lg:py-20 bg-cream">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-          <div className="text-center mb-10">
-            <div className="flex items-center justify-center gap-3 mb-3">
-              <div className="h-px w-8 bg-orange" />
-              <span
-                className="text-orange text-xs font-semibold tracking-widest uppercase"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Gallery
-              </span>
-              <div className="h-px w-8 bg-orange" />
-            </div>
-            <h2
-              className="text-2xl sm:text-3xl font-bold text-navy"
-              style={{ fontFamily: "var(--font-montserrat)" }}
-            >
-              From the Field — Juru Sector, Bugesera
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {galleryPlaceholders.map((caption) => (
+      {/* ── Photo Gallery — auto-scrolling carousel ───────────────────────────── */}
+      <section className="py-10 pb-14 bg-cream overflow-hidden">
+        <div className="overflow-hidden">
+          <div
+            className="flex gap-3"
+            style={{
+              animation: "scroll-gallery 22s linear infinite",
+              width: "max-content",
+              willChange: "transform",
+            }}
+          >
+            {[...galleryItems, ...galleryItems].map((caption, i) => (
               <div
-                key={caption}
-                className="group relative aspect-[4/3] rounded-xl overflow-hidden bg-navy/10 flex flex-col items-center justify-center cursor-pointer"
+                key={i}
+                className="flex-shrink-0 w-48 h-36 rounded-xl flex flex-col items-center justify-center gap-2"
+                style={{ backgroundColor: "rgba(5,10,48,0.07)" }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-navy/5 to-navy/20" />
                 <svg
-                  className="w-10 h-10 text-navy/20 mb-3 relative z-10"
+                  className="w-7 h-7"
+                  style={{ color: "rgba(5,10,48,0.2)" }}
                   fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
@@ -321,62 +277,13 @@ export default function OneHenPerChildPage() {
                     d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <p
-                  className="text-navy/40 text-xs text-center px-4 relative z-10"
-                  style={{ fontFamily: "var(--font-nunito)" }}
+                  className="text-xs text-center px-3"
+                  style={{ color: "rgba(5,10,48,0.3)", fontFamily: "var(--font-nunito)" }}
                 >
                   {caption}
                 </p>
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-orange/0 group-hover:bg-orange/10 transition-colors duration-300" />
               </div>
             ))}
-          </div>
-          <p
-            className="text-center text-navy/40 text-xs mt-6"
-            style={{ fontFamily: "var(--font-nunito)" }}
-          >
-            Photos coming soon — sourced from B2C's 2024–2025 Juru Sector field visits.
-          </p>
-        </div>
-      </section>
-
-      {/* ── Partners ─────────────────────────────────────────────────────────── */}
-      <section className="py-14 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <span
-              className="text-navy/40 text-xs font-bold tracking-widest uppercase"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              Made Possible in Collaboration With
-            </span>
-          </div>
-
-          <div className="flex justify-center">
-            <div className="bg-gray-50 rounded-2xl px-10 py-7 max-w-sm w-full text-center">
-              <p
-                className="text-navy font-bold text-base mb-2"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                ECD Community Partners
-              </p>
-              <p
-                className="text-navy/50 text-sm leading-relaxed"
-                style={{ fontFamily: "var(--font-nunito)" }}
-              >
-                Juru Sector, Bugesera District
-              </p>
-              <div className="mt-4 pt-4 border-t border-navy/8">
-                <p
-                  className="text-navy/45 text-xs leading-relaxed"
-                  style={{ fontFamily: "var(--font-nunito)" }}
-                >
-                  This program is made possible through partnerships with community development
-                  organizations that share our belief that fighting malnutrition requires
-                  community ownership.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>

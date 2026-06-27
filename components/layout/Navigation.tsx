@@ -31,7 +31,6 @@ const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about", dropdown: aboutDropdown, dropdownKey: "about" },
   { label: "Programs", href: "/programs", dropdown: programsDropdown, dropdownKey: "programs" },
-  { label: "Impact", href: "/impact" },
   { label: "Get Involved", href: "/volunteer" },
   { label: "News", href: "/news" },
 ]

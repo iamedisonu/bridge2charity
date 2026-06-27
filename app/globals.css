@@ -25,6 +25,11 @@ html {
   scroll-behavior: smooth;
 }
 
+@keyframes scroll-gallery {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
 body {
   background-color: #ffffff;
   color: #050a30;

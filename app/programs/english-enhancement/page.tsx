@@ -70,15 +70,6 @@ export default function EnglishEnhancementPage() {
 
         {/* Bottom-left text */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 pt-28 w-full">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="h-px w-8 bg-orange" />
-            <span
-              className="text-orange text-xs font-semibold tracking-widest uppercase"
-              style={{ fontFamily: "var(--font-jakarta)" }}
-            >
-              English Enhancement Program
-            </span>
-          </div>
           <h1
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight max-w-2xl"
             style={{ fontFamily: "var(--font-montserrat)" }}
@@ -96,15 +87,6 @@ export default function EnglishEnhancementPage() {
 
             {/* Left — text */}
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-px w-8 bg-orange" />
-                <span
-                  className="text-orange text-xs font-semibold tracking-widest uppercase"
-                  style={{ fontFamily: "var(--font-jakarta)" }}
-                >
-                  About the Program
-                </span>
-              </div>
               <h2
                 className="text-2xl sm:text-3xl font-bold text-navy mb-5 leading-tight"
                 style={{ fontFamily: "var(--font-montserrat)" }}
@@ -204,15 +186,6 @@ export default function EnglishEnhancementPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           <div className="max-w-3xl mb-12">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-px w-8 bg-orange" />
-              <span
-                className="text-orange text-xs font-semibold tracking-widest uppercase"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Our Curriculum
-              </span>
-            </div>
             <h2
               className="text-2xl sm:text-3xl font-bold text-navy mb-5 leading-tight"
               style={{ fontFamily: "var(--font-montserrat)" }}
