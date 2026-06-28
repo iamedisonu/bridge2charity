@@ -22,6 +22,39 @@ function useCountUp(target: number, duration = 2000, triggered = false) {
   return count
 }
 
+// ── Gallery photo — shows image if available, placeholder if not ──────────────
+function GalleryPhoto({ n }: { n: number }) {
+  const [failed, setFailed] = useState(false)
+  return (
+    <div
+      className="flex-shrink-0 w-52 h-40 rounded-xl overflow-hidden"
+      style={{ backgroundColor: "rgba(5,10,48,0.07)" }}
+    >
+      {!failed ? (
+        <img
+          src={`/images/programs/ohpc-gallery-${n}.jpg`}
+          alt={`One Hen Per Child — photo ${n}`}
+          className="w-full h-full object-cover"
+          onError={() => setFailed(true)}
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center">
+          <svg
+            className="w-7 h-7"
+            style={{ color: "rgba(5,10,48,0.2)" }}
+            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+              d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+              d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ── Data ─────────────────────────────────────────────────────────────────────
 const impactStats = [
   { value: 15, label: "Hens distributed to families", suffix: "+" },
@@ -51,14 +84,12 @@ const steps = [
   },
 ]
 
-const galleryItems = [
-  "Training session",
-  "Hens being distributed",
-  "Parent with child",
-  "Mushroom seedlings",
-  "ECD Center exterior",
-  "Field visit / follow-up",
-]
+// Active gallery slots — ohpc-gallery-1.jpg through ohpc-gallery-20.jpg
+const activePhotos = Array.from({ length: 20 }, (_, i) => i + 1)
+
+// Future gallery slots — add photos named ohpc-gallery-21.jpg to ohpc-gallery-30.jpg
+// then change {false} to {true} below to make them visible
+const futurePhotos = Array.from({ length: 10 }, (_, i) => i + 21)
 
 // ── Stat card ────────────────────────────────────────────────────────────────
 function StatCard({ value, label, suffix, triggered }: {
@@ -89,6 +120,7 @@ function StatCard({ value, label, suffix, triggered }: {
 // ── Page ─────────────────────────────────────────────────────────────────────
 export default function OneHenPerChildPage() {
   const [triggered, setTriggered] = useState(false)
+  const [paused, setPaused] = useState(false)
   const statsRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -162,14 +194,12 @@ export default function OneHenPerChildPage() {
             </h2>
           </div>
 
-          {/* Row 1 — 3 stats */}
           <div ref={statsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-5">
             {impactStats.slice(0, 3).map((stat) => (
               <StatCard key={stat.label} {...stat} triggered={triggered} />
             ))}
           </div>
 
-          {/* Row 2 — 2+ centered below 90+ */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div />
             <StatCard {...impactStats[3]} triggered={triggered} />
@@ -201,11 +231,9 @@ export default function OneHenPerChildPage() {
             </h2>
           </div>
 
-          {/* Steps */}
           <div className="max-w-3xl mx-auto">
             {steps.map((step, i) => (
               <div key={step.number} className="flex gap-6 items-start">
-                {/* Number + connector line */}
                 <div className="flex flex-col items-center">
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 z-10"
@@ -225,11 +253,7 @@ export default function OneHenPerChildPage() {
                     />
                   )}
                 </div>
-
-                {/* Card */}
-                <div
-                  className={`flex-1 bg-gray-50 rounded-2xl px-7 py-6 ${i < steps.length - 1 ? "mb-4" : ""}`}
-                >
+                <div className={`flex-1 bg-gray-50 rounded-2xl px-7 py-6 ${i < steps.length - 1 ? "mb-4" : ""}`}>
                   <h3
                     className="text-navy font-bold text-base mb-2"
                     style={{ fontFamily: "var(--font-jakarta)" }}
@@ -249,40 +273,51 @@ export default function OneHenPerChildPage() {
         </div>
       </section>
 
-      {/* ── Photo Gallery — auto-scrolling carousel ───────────────────────────── */}
-      <section className="py-10 pb-14 bg-cream overflow-hidden">
-        <div className="overflow-hidden">
+      {/* ── Photo Gallery — slow auto-scroll, click to pause/resume ─────────── */}
+      <section className="py-10 pb-14 bg-cream">
+        <div
+          className="overflow-hidden relative cursor-pointer select-none"
+          onClick={() => setPaused(p => !p)}
+          title={paused ? "Click to resume" : "Click to pause"}
+        >
+          {/* Pause indicator */}
+          {paused && (
+            <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+              <div
+                className="flex items-center gap-2 px-4 py-2 rounded-full"
+                style={{ backgroundColor: "rgba(0,0,0,0.45)" }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <span
+                  className="text-white text-xs font-semibold tracking-wide"
+                  style={{ fontFamily: "var(--font-jakarta)" }}
+                >
+                  Click to resume
+                </span>
+              </div>
+            </div>
+          )}
+
+          {/* Scrolling strip */}
           <div
             className="flex gap-3"
             style={{
-              animation: "scroll-gallery 22s linear infinite",
+              animation: "scroll-gallery 80s linear infinite",
+              animationPlayState: paused ? "paused" : "running",
               width: "max-content",
               willChange: "transform",
             }}
           >
-            {[...galleryItems, ...galleryItems].map((caption, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 w-48 h-36 rounded-xl flex flex-col items-center justify-center gap-2"
-                style={{ backgroundColor: "rgba(5,10,48,0.07)" }}
-              >
-                <svg
-                  className="w-7 h-7"
-                  style={{ color: "rgba(5,10,48,0.2)" }}
-                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <p
-                  className="text-xs text-center px-3"
-                  style={{ color: "rgba(5,10,48,0.3)", fontFamily: "var(--font-nunito)" }}
-                >
-                  {caption}
-                </p>
-              </div>
+            {/* Active photos — duplicated for seamless loop */}
+            {[...activePhotos, ...activePhotos].map((n, i) => (
+              <GalleryPhoto key={i} n={n} />
+            ))}
+
+            {/* Future photos (21–30) — drop files + change false→true to show */}
+            {false && futurePhotos.map((n, i) => (
+              <GalleryPhoto key={`future-${i}`} n={n} />
             ))}
           </div>
         </div>
