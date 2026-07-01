@@ -11,7 +11,7 @@ export const teamMembers: TeamMember[] = [
     role: "Managing Director, Bridge2Charity",
     email: "ishimwedavidclever@gmail.com",
     bio: "David serves as the overall leader of Bridge2Charity Foundation, responsible for the organisation's management, vision, and strategic direction. He guides the team in delivering programs that create lasting change in Rwandan communities, ensuring that every initiative stays true to B2C's founding mission.",
-    photo: undefined,
+    photo: "/images/team/david-ishimwe.jpeg",
     initials: "DI",
     category: "bts",
     inCollage: true,

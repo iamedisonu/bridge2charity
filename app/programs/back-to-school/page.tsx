@@ -64,17 +64,17 @@ const approaches = [
   {
     title: "We Invest Before We Expect",
     description:
-      "Every student we support receives what they need before we ask anything of them — school fees covered, books provided, and a place secured. Because a child cannot focus on learning when they are unsure if they will be there tomorrow.",
+      "Every student receives all met needs before we expect anything of them — school fees covered, books provided, and a place secured. We believe that a child cannot focus on learning when they are unsure about them affording to stay in a school for another day.",
   },
   {
     title: "We Teach With Intention",
     description:
-      "Through the English Enhancement Program, students build literacy, communication, and critical thinking skills through engaging sessions. We simplify, adapt, and show up until learning actually lands.",
+      "In our English Enhancement Program, students build literacy, communication, and critical thinking skills through our curriculum, and mentorship. We simplify, adapt, and show up until learning actually lands through our one-on-one sessions with our students.",
   },
   {
     title: "We Stay",
     description:
-      "We visit schools, write personal letters, and check in every term — not because it is required, but because we believe that showing up consistently is what tells a child they matter.",
+      "We move past school presence and, visits to share a meal with the family. We write personal letters and check in every now and then. Showing up consistently is what, to us, is our way of felling a child, they are worth everything.",
   },
 ]
 
