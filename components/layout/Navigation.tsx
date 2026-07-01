@@ -6,7 +6,7 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Menu, X, ChevronDown } from "lucide-react"
 
-type DropdownKey = "about" | "programs"
+type DropdownKey = "about" | "programs" | "getInvolved"
 
 type NavLink = {
   label: string
@@ -27,11 +27,18 @@ const programsDropdown = [
   { label: "One Hen Per Child", href: "/programs/one-hen-per-child" },
 ]
 
+const getInvolvedDropdown = [
+  { label: "Support a Student", href: "/donate" },
+  { label: "Become a Volunteer", href: "/volunteer" },
+  { label: "Join the Team", href: "/join" },
+  { label: "Contact Us", href: "/contact" },
+]
+
 const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about", dropdown: aboutDropdown, dropdownKey: "about" },
   { label: "Programs", href: "/programs", dropdown: programsDropdown, dropdownKey: "programs" },
-  { label: "Get Involved", href: "/volunteer" },
+  { label: "Get Involved", href: "/volunteer", dropdown: getInvolvedDropdown, dropdownKey: "getInvolved" },
   { label: "News", href: "/news" },
 ]
 
@@ -75,6 +82,7 @@ export default function Navigation() {
   function isNavLinkActive(link: NavLink): boolean {
     if (link.dropdownKey === "about") return pathname.startsWith("/about") || pathname.startsWith("/team")
     if (link.dropdownKey === "programs") return pathname.startsWith("/programs")
+    if (link.dropdownKey === "getInvolved") return pathname === "/volunteer" || pathname === "/donate" || pathname === "/join" || pathname === "/contact"
     return pathname === link.href
   }
 
