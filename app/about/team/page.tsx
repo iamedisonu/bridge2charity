@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function MeetTheTeamPage() {
   return (
-    <main className="pt-20">
+    <main>
       <TeamSection />
     </main>
   )
