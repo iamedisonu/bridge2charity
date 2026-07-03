@@ -100,6 +100,22 @@ export default function MissionSection() {
                 </p>
               </div>
             </div>
+
+            <div className="mt-5 border-l-4 border-navy bg-navy px-6 py-5 text-white shadow-soft-sm">
+              <span
+                className="text-xs font-bold uppercase tracking-[0.22em] text-orange"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Field principle
+              </span>
+              <p
+                className="mt-2 text-sm font-semibold leading-relaxed text-white/78"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Stay close enough to the community that every program decision can be traced back
+                to a real student, family, or classroom.
+              </p>
+            </div>
           </div>
 
           {/* Right — Our Values (starts parallel to "Who We Are") */}

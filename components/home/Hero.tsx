@@ -159,6 +159,24 @@ export default function Hero() {
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-40 bg-[linear-gradient(to_bottom,rgba(5,10,48,0.82),rgba(5,10,48,0))]"
       />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-orange/50 to-transparent"
+      />
+
+      <div
+        aria-hidden="true"
+        className="absolute left-8 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-5 xl:flex"
+      >
+        <span className="h-24 w-px bg-white/18" />
+        <span
+          className="[writing-mode:vertical-rl] rotate-180 text-[10px] font-bold uppercase tracking-[0.32em] text-white/45"
+          style={{ fontFamily: "var(--font-jakarta)" }}
+        >
+          Burera / Bugesera / Rwanda
+        </span>
+        <span className="h-24 w-px bg-white/18" />
+      </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 text-center text-white sm:px-6 lg:px-8">
 
